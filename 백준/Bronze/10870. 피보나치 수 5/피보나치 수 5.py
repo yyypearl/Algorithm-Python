@@ -1,13 +1,10 @@
 import sys
+input=sys.stdin.readline
 
-n = int(sys.stdin.readline())
+n=int(input())
+arr=[0,1]
 
-def fibo(n):
-    if (n==0):
-        return 0
-    elif (n==1):
-        return 1
-    else:
-        return fibo(n-2) + fibo(n-1)
-    
-print(fibo(n))
+for i in range(2,n+1):
+	arr.append(arr[i-1]+arr[i-2])
+ 
+print(arr[n])
