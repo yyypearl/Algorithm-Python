@@ -1,32 +1,31 @@
 import sys
+input = sys.stdin.readline
 
-n = int(sys.stdin.readline())
-papers = [list(map(int, sys.stdin.readline().split())) for i in range(n)]
+def findPaper(x, y, size):
+    global w, b
 
+    color = papers[y][x]
+    mid = size // 2
 
-white_count = 0
-blue_count = 0
+    for i in range (y, y+size):
+        for j in range (x, x+size):
+            if color != papers[i][j]:
+                findPaper(x, y, mid)
+                findPaper(x+mid, y, mid)
+                findPaper(x, y+mid, mid)
+                findPaper(x+mid, y+mid, mid)
+                return
 
-def findPaper(n, papers):
-    global white_count, blue_count
-
-    # 페이지 내 모두 같은 색상일 경우
-    flattened = [item for row in papers for item in row]
-    unique = set(flattened)
-
-    if len(unique)==1:
-        if flattened[0]==1:
-            blue_count += 1
-        else:
-            white_count +=1
-
+    if color:
+        b+=1
     else:
-        mid = n // 2
-        findPaper(mid, [row[:mid] for row in papers[:mid]])
-        findPaper(mid, [row[mid:] for row in papers[:mid]])
-        findPaper(mid, [row[:mid] for row in papers[mid:]])
-        findPaper(mid, [row[mid:] for row in papers[mid:]])
+        w+=1
+        
+w, b = 0, 0
 
-    return (f"{white_count}\n{blue_count}")
+n = int(input())
+papers = [list(map(int, input().split())) for i in range(n)]
 
-print(findPaper(n, papers))
+findPaper(0, 0, n)
+print(w)
+print(b)
