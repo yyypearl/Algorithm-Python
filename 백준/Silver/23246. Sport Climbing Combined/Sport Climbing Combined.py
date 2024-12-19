@@ -3,16 +3,12 @@ import sys
 input = sys.stdin.readline
 
 n = int(input())
-li = []
 
+line = []
 for _ in range(n):
-    line = list(map(int, input().strip().split(" ")))
-    score = line[1]*line[2]*line[3]
-    second = line[1]+line[2]+line[3]
+    line.append(list(map(int, input().strip().split(" "))))
 
-    li.append([score, second, line[0]])
-
-li.sort()
+line.sort(key = lambda x: (x[1]*x[2]*x[3], x[1]+x[2]+x[3], x[0]))
 
 for i in range(3):
-    print(li[i][2], end=" ")
+    print(line[i][0], end=" ")
